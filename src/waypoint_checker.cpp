@@ -225,7 +225,7 @@ void WaypointChecker::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
                 // ROS_INFO("NOW WAYPOINT: (%f, %f)", waypoint_.pose.position.x, waypoint_.pose.position.y);
 
                 now_ = ros::Time::now();
-                if (now_ - start_ > ros::Duration(3.0))
+                if (now_ - start_ > ros::Duration(5.0))
                 {
                     ROS_INFO("3sec PASSED");
                     waypoint_skip_flag_msg_.data = 1;
