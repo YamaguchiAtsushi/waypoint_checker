@@ -201,9 +201,16 @@ void WaypointChecker::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
         // is_stay_obstacle_ = false;
         for (const auto& point : cluster)
         {
+            // ROS_INFO("12-22 TIMER START: %f", (now_ - start_).toSec());
+                // std::cout << "distance" << distance(point, waypoint_.pose.position) << std::endl;
+
+
             
             //変更後
             if(distance(point, waypoint_.pose.position) <= 0.5){
+                std::cout << "distance" << distance(point, waypoint_.pose.position) << std::endl;
+
+                std::cout << "a" << std::endl;
                 is_stay_obstacle_ = true;
 
                 if(is_timer_start_ == false){
@@ -214,10 +221,10 @@ void WaypointChecker::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
 
                 // std::cout << "point" << point.x << "," << point.y << std::endl;
 
-                std::cout << "distance" << distance(point, waypoint_.pose.position) << std::endl;
+                
 
                 // waypoint_skip_flag_msg_.data = 1;
-                std::cout << "is_timer_start_" << is_timer_start_ << std::endl;
+                // std::cout << "is_timer_start_" << is_timer_start_ << std::endl;
 
 
 
@@ -227,7 +234,7 @@ void WaypointChecker::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
                 now_ = ros::Time::now();
                 if (now_ - start_ > ros::Duration(5.0))
                 {
-                    ROS_INFO("3sec PASSED");
+                    ROS_INFO("5sec PASSED");
                     waypoint_skip_flag_msg_.data = 1;
 
                     ROS_INFO("WAYPOINT SKIP FLAG:%d", waypoint_skip_flag_msg_.data);
@@ -236,6 +243,8 @@ void WaypointChecker::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
                 }
                 break;
             }
+                // std::cout << "b" << std::endl;
+
 
 
             //変更前
@@ -253,9 +262,9 @@ void WaypointChecker::scanCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
         }
     }
     if(is_stay_obstacle_ == false){
-        std::cout << "is_timer_start1" << is_timer_start_ << std::endl;
+        std::cout << "is_timer_start1:" << is_timer_start_ << std::endl;
         is_timer_start_ = false;
-        std::cout << "is_timer_start2" << is_timer_start_ << std::endl;
+        std::cout << "is_timer_start2:" << is_timer_start_ << std::endl;
 
     }
     waypoint_skip_flag_pub_.publish(waypoint_skip_flag_msg_);
